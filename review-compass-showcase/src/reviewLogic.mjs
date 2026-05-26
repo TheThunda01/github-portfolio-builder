@@ -356,7 +356,7 @@ export function buildSubmissionCopy(project) {
   const sources = getSourceList(project);
   return {
     title: "Review Compass",
-    link: "https://htmlpreview.github.io/?https://github.com/TheThunda01/github-portfolio-builder/blob/main/review-compass-showcase/index.html",
+    link: "https://raw.githack.com/TheThunda01/github-portfolio-builder/main/review-compass-showcase/index.html",
     description,
     impact: `For the sample topic, the app produces this working question: ${buildQuestion(project)}`,
     tools: "Codex, ChatGPT research support, browser-based JavaScript, and published evidence-synthesis reporting guidance.",
