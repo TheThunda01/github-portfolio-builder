@@ -351,14 +351,14 @@ export function screenRecord(recordText, project) {
 
 export function buildSubmissionCopy(project) {
   const description =
-    "Review Compass is a student-friendly app that helps students plan evidence reviews, from systematic and scoping reviews to rapid, umbrella, mapping, qualitative, mixed-methods, integrative, narrative, realist, and meta-analysis projects. It turns a rough topic into a review-type guide, structured question, search drafts, screening practice, extraction fields, gap checks, notes, and reporting checklist. Built with Codex AI and grounded in PRISMA, PRISMA-S, PRISMA-ScR, and review methods guidance.";
+    "Review Compass is a student-friendly app that helps students plan evidence reviews, from systematic and scoping reviews to rapid, umbrella, mapping, qualitative, mixed-methods, integrative, narrative, realist, and meta-analysis projects. It turns a rough topic into a review-type guide, structured question, search drafts, screening practice, extraction fields, gap checks, project notes, and a reporting checklist. Grounded in PRISMA, PRISMA-S, PRISMA-ScR, Cochrane, JBI, and review-method guidance.";
   const sources = getSourceList(project);
   return {
     title: "Review Compass",
     link: "https://raw.githack.com/TheThunda01/github-portfolio-builder/main/review-compass-showcase/index.html",
     description,
     impact: `For the sample topic, the app produces this working question: ${buildQuestion(project)}`,
-    tools: "Codex, ChatGPT research support, browser-based JavaScript, and published evidence-synthesis reporting guidance.",
+    tools: "AI-supported planning and testing, browser-based JavaScript, and published evidence-synthesis reporting guidance.",
     sources: sources.length ? `The current source plan includes ${sources.join(", ")}.` : "The source plan should name the databases and supplementary sources before submission."
   };
 }
