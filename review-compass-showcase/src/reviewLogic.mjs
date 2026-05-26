@@ -267,11 +267,10 @@ export function buildReportingChecklist(project) {
 
 export function buildPrismaSearchItems() {
   return [
-    "Database name",
-    "Database platform",
-    "Multi-database searching",
+    "Database names and platforms",
+    "Multi-database platform details",
     "Study registries",
-    "Online resources and browsing",
+    "Online resources and hand searching",
     "Citation searching",
     "Contact with authors or experts",
     "Full search strategies",
