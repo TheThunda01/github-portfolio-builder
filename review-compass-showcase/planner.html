@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Review Compass helps students plan many evidence review types with structured questions, search drafts, screening logic, extraction fields, and reporting checklists."
+    >
+    <title>Review Compass Planner</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Project setup">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <circle cx="16" cy="16" r="11"></circle>
+              <path d="M19.5 8.5 16.8 17 8.5 19.5 13.2 15z"></path>
+              <path d="M16 4.5v3"></path>
+              <path d="M16 24.5v3"></path>
+              <path d="M4.5 16h3"></path>
+              <path d="M24.5 16h3"></path>
+            </svg>
+          </div>
+          <div>
+            <h1>Review Compass</h1>
+            <p>Research planning that keeps the next step visible.</p>
+          </div>
+        </div>
+
+        <nav class="mini-site-nav" aria-label="Review Compass pages">
+          <a href="./index.html">Overview</a>
+          <a class="is-current" href="./planner.html">Planner</a>
+          <a href="./review-types.html">Review Types</a>
+          <a href="./cochrane-methods.html">Methods</a>
+          <a href="./common-gaps.html">Gaps</a>
+          <a href="./references.html">References</a>
+        </nav>
+
+        <form id="project-form" class="project-form">
+          <label>
+            <span>Review type</span>
+            <select name="reviewType" id="review-type-select"></select>
+          </label>
+
+          <label>
+            <span>Working topic</span>
+            <textarea name="topic" rows="3"></textarea>
+          </label>
+
+          <label>
+            <span>Population or problem</span>
+            <textarea name="population" rows="2"></textarea>
+          </label>
+
+          <label>
+            <span>Concept or intervention</span>
+            <textarea name="concept" rows="2"></textarea>
+          </label>
+
+          <label>
+            <span>Context, comparison, or setting</span>
+            <textarea name="context" rows="2"></textarea>
+          </label>
+
+          <label>
+            <span>Outcomes or evidence signals</span>
+            <textarea name="outcomes" rows="2"></textarea>
+          </label>
+
+          <label>
+            <span>Databases and sources</span>
+            <textarea name="databases" rows="2"></textarea>
+          </label>
+
+          <label>
+            <span>Include when</span>
+            <textarea name="include" rows="3"></textarea>
+          </label>
+
+          <label>
+            <span>Exclude when</span>
+            <textarea name="exclude" rows="3"></textarea>
+          </label>
+
+          <label>
+            <span>Reviewer plan</span>
+            <textarea name="teamPlan" rows="3"></textarea>
+          </label>
+        </form>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="surface-label">Student evidence synthesis workspace</p>
+            <h2 id="project-title">Review plan</h2>
+          </div>
+          <div class="action-row" aria-label="Project actions">
+            <button type="button" class="ghost-button" id="reset-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4v6h6"></path>
+                <path d="M20 11a8 8 0 0 0-14.5-4.5L4 10"></path>
+                <path d="M20 20v-6h-6"></path>
+                <path d="M4 13a8 8 0 0 0 14.5 4.5L20 14"></path>
+              </svg>
+              Reset
+            </button>
+            <button type="button" class="ghost-button" id="copy-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy
+            </button>
+            <button type="button" class="primary-button" id="download-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12"></path>
+                <path d="m7 10 5 5 5-5"></path>
+                <path d="M5 21h14"></path>
+              </svg>
+              Export
+            </button>
+          </div>
+        </header>
+
+        <section class="status-strip" aria-label="Project readiness">
+          <div>
+            <span id="readiness-score">0%</span>
+            <p id="readiness-label">drafting plan</p>
+          </div>
+          <div>
+            <span id="framework-label">PICO</span>
+            <p>question framework</p>
+          </div>
+          <div>
+            <span id="source-count">0</span>
+            <p>sources named</p>
+          </div>
+          <div>
+            <span id="reviewer-label">Dual</span>
+            <p>screening plan</p>
+          </div>
+        </section>
+
+        <nav class="tab-list" role="tablist" aria-label="Review workflow">
+          <button type="button" class="tab is-active" id="tab-guide" role="tab" aria-selected="true" aria-controls="panel-guide" data-tab="guide">Guide</button>
+          <button type="button" class="tab" id="tab-question" role="tab" aria-selected="false" aria-controls="panel-question" tabindex="-1" data-tab="question">Question</button>
+          <button type="button" class="tab" id="tab-search" role="tab" aria-selected="false" aria-controls="panel-search" tabindex="-1" data-tab="search">Search</button>
+          <button type="button" class="tab" id="tab-screen" role="tab" aria-selected="false" aria-controls="panel-screen" tabindex="-1" data-tab="screen">Screen</button>
+          <button type="button" class="tab" id="tab-extract" role="tab" aria-selected="false" aria-controls="panel-extract" tabindex="-1" data-tab="extract">Extract</button>
+          <button type="button" class="tab" id="tab-report" role="tab" aria-selected="false" aria-controls="panel-report" tabindex="-1" data-tab="report">Report</button>
+        </nav>
+
+        <section class="panel is-active" id="panel-guide" role="tabpanel" data-panel="guide" aria-labelledby="tab-guide">
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 0</p>
+              <h3 id="guide-heading">Choose the review path</h3>
+            </div>
+          </div>
+          <div class="guide-layout">
+            <div id="guide-output" class="guide-output"></div>
+            <aside class="notes-card" aria-labelledby="notes-heading">
+              <div>
+                <p class="surface-label">Student notes</p>
+                <h4 id="notes-heading">Questions for your mentor or librarian</h4>
+              </div>
+              <textarea id="notes-input" rows="10" aria-label="Student notes for this review plan"></textarea>
+              <div id="notes-prompts" class="prompt-list" aria-label="Suggested notes prompts"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-question" role="tabpanel" data-panel="question" aria-labelledby="tab-question" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 1</p>
+              <h3 id="question-heading">Shape the review question</h3>
+            </div>
+          </div>
+          <div id="question-output" class="prose-grid"></div>
+        </section>
+
+        <section class="panel" id="panel-search" role="tabpanel" data-panel="search" aria-labelledby="tab-search" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 2</p>
+              <h3 id="search-heading">Build a reproducible search draft</h3>
+            </div>
+            <label class="compact-select">
+              <span>Database</span>
+              <select id="database-select">
+                <option value="pubmed">PubMed</option>
+                <option value="scopus">Scopus</option>
+                <option value="wos">Web of Science</option>
+                <option value="cinahl">CINAHL</option>
+              </select>
+            </label>
+          </div>
+          <div id="search-output" class="search-layout"></div>
+        </section>
+
+        <section class="panel" id="panel-screen" role="tabpanel" data-panel="screen" aria-labelledby="tab-screen" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 3</p>
+              <h3 id="screen-heading">Practice title and abstract screening</h3>
+            </div>
+          </div>
+          <div class="screening-layout">
+            <label class="record-box">
+              <span>Paste one title and abstract</span>
+              <textarea id="record-input" rows="8"></textarea>
+            </label>
+            <div id="screen-output" class="decision-card" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="panel" id="panel-extract" role="tabpanel" data-panel="extract" aria-labelledby="tab-extract" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 4</p>
+              <h3 id="extract-heading">Draft extraction fields</h3>
+            </div>
+          </div>
+          <div id="extract-output" class="table-wrap"></div>
+        </section>
+
+        <section class="panel" id="panel-report" role="tabpanel" data-panel="report" aria-labelledby="tab-report" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 5</p>
+              <h3 id="report-heading">Check reporting readiness</h3>
+            </div>
+          </div>
+          <div id="report-output" class="checklist-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./src/app.mjs"></script>
+  </body>
+</html>
