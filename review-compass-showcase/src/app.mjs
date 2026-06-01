@@ -27,6 +27,9 @@ import {
 const STORAGE_KEY = "review-compass-project-v1";
 const RECORD_KEY = "review-compass-record-v1";
 const NOTES_KEY = "review-compass-notes-v1";
+const LOCAL_HOSTS = new Set(["", "localhost", "127.0.0.1", "::1"]);
+const canUsePersistentStorage = LOCAL_HOSTS.has(window.location.hostname);
+const memoryStorage = new Map();
 
 const form = document.querySelector("#project-form");
 const projectTitle = document.querySelector("#project-title");
@@ -240,7 +243,7 @@ function renderGuide() {
                 <p>${escapeHtml(gap.need)}</p>
               </div>
               <div class="gap-meter" aria-label="${escapeHtml(gap.gap)} score ${gap.score} percent">
-                <span style="width: ${gap.score}%"></span>
+                <meter min="0" max="100" value="${gap.score}">${gap.score}%</meter>
               </div>
               <em>${escapeHtml(gap.statusLabel)}</em>
             </article>`
@@ -517,8 +520,7 @@ async function copyText(text) {
   const textarea = document.createElement("textarea");
   textarea.value = text;
   textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
+  textarea.className = "clipboard-helper";
   document.body.append(textarea);
   textarea.select();
   document.execCommand("copy");
@@ -533,17 +535,24 @@ function showToast(message) {
 }
 
 function readStorage(key) {
+  if (!canUsePersistentStorage) {
+    return memoryStorage.get(key) ?? null;
+  }
+
   try {
     return localStorage.getItem(key);
   } catch {
-    return null;
+    return memoryStorage.get(key) ?? null;
   }
 }
 
 function writeStorage(key, value) {
+  memoryStorage.set(key, value);
+  if (!canUsePersistentStorage) return;
+
   try {
     localStorage.setItem(key, value);
   } catch {
-    // Storage can be unavailable in private or restricted browser contexts.
+    // Storage can be unavailable in restricted browser contexts.
   }
 }
