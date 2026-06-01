@@ -11,6 +11,7 @@
     >
     <title>Review Compass Planner</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./enhancements.css">
   </head>
   <body>
     <div class="app-shell">
@@ -149,8 +150,11 @@
 
         <nav class="tab-list" role="tablist" aria-label="Review workflow">
           <button type="button" class="tab is-active" id="tab-guide" role="tab" aria-selected="true" aria-controls="panel-guide" data-tab="guide">Guide</button>
+          <button type="button" class="tab" id="tab-protocol" role="tab" aria-selected="false" aria-controls="panel-protocol" tabindex="-1" data-tab="protocol">Protocol</button>
           <button type="button" class="tab" id="tab-question" role="tab" aria-selected="false" aria-controls="panel-question" tabindex="-1" data-tab="question">Question</button>
           <button type="button" class="tab" id="tab-search" role="tab" aria-selected="false" aria-controls="panel-search" tabindex="-1" data-tab="search">Search</button>
+          <button type="button" class="tab" id="tab-audit" role="tab" aria-selected="false" aria-controls="panel-audit" tabindex="-1" data-tab="audit">Audit</button>
+          <button type="button" class="tab" id="tab-flow" role="tab" aria-selected="false" aria-controls="panel-flow" tabindex="-1" data-tab="flow">Flow</button>
           <button type="button" class="tab" id="tab-screen" role="tab" aria-selected="false" aria-controls="panel-screen" tabindex="-1" data-tab="screen">Screen</button>
           <button type="button" class="tab" id="tab-extract" role="tab" aria-selected="false" aria-controls="panel-extract" tabindex="-1" data-tab="extract">Extract</button>
           <button type="button" class="tab" id="tab-report" role="tab" aria-selected="false" aria-controls="panel-report" tabindex="-1" data-tab="report">Report</button>
@@ -176,10 +180,20 @@
           </div>
         </section>
 
-        <section class="panel" id="panel-question" role="tabpanel" data-panel="question" aria-labelledby="tab-question" hidden>
+        <section class="panel" id="panel-protocol" role="tabpanel" data-panel="protocol" aria-labelledby="tab-protocol" hidden>
           <div class="panel-heading">
             <div>
               <p class="surface-label">Step 1</p>
+              <h3 id="protocol-heading">See the protocol snapshot</h3>
+            </div>
+          </div>
+          <div id="protocol-output" class="snapshot-board"></div>
+        </section>
+
+        <section class="panel" id="panel-question" role="tabpanel" data-panel="question" aria-labelledby="tab-question" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 2</p>
               <h3 id="question-heading">Shape the review question</h3>
             </div>
           </div>
@@ -189,7 +203,7 @@
         <section class="panel" id="panel-search" role="tabpanel" data-panel="search" aria-labelledby="tab-search" hidden>
           <div class="panel-heading">
             <div>
-              <p class="surface-label">Step 2</p>
+              <p class="surface-label">Step 3</p>
               <h3 id="search-heading">Build a reproducible search draft</h3>
             </div>
             <label class="compact-select">
@@ -205,10 +219,66 @@
           <div id="search-output" class="search-layout"></div>
         </section>
 
+        <section class="panel" id="panel-audit" role="tabpanel" data-panel="audit" aria-labelledby="tab-audit" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 4</p>
+              <h3 id="audit-heading">Check the search before it grows</h3>
+            </div>
+          </div>
+          <div id="audit-output" class="audit-board"></div>
+        </section>
+
+        <section class="panel" id="panel-flow" role="tabpanel" data-panel="flow" aria-labelledby="tab-flow" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="surface-label">Step 5</p>
+              <h3 id="flow-heading">Draft the PRISMA flow counts</h3>
+            </div>
+          </div>
+          <div class="flow-workbench">
+            <form id="flow-form" class="flow-form" aria-label="PRISMA flow count inputs">
+              <label>
+                <span>Database records</span>
+                <input type="number" min="0" step="1" name="databaseRecords" inputmode="numeric">
+              </label>
+              <label>
+                <span>Register records</span>
+                <input type="number" min="0" step="1" name="registerRecords" inputmode="numeric">
+              </label>
+              <label>
+                <span>Other-source records</span>
+                <input type="number" min="0" step="1" name="otherRecords" inputmode="numeric">
+              </label>
+              <label>
+                <span>Duplicates removed</span>
+                <input type="number" min="0" step="1" name="duplicatesRemoved" inputmode="numeric">
+              </label>
+              <label>
+                <span>Automation exclusions</span>
+                <input type="number" min="0" step="1" name="automationExcluded" inputmode="numeric">
+              </label>
+              <label>
+                <span>Records excluded</span>
+                <input type="number" min="0" step="1" name="recordsExcluded" inputmode="numeric">
+              </label>
+              <label>
+                <span>Reports not retrieved</span>
+                <input type="number" min="0" step="1" name="reportsNotRetrieved" inputmode="numeric">
+              </label>
+              <label>
+                <span>Reports excluded</span>
+                <input type="number" min="0" step="1" name="reportsExcluded" inputmode="numeric">
+              </label>
+            </form>
+            <div id="flow-output" class="flow-output" aria-live="polite"></div>
+          </div>
+        </section>
+
         <section class="panel" id="panel-screen" role="tabpanel" data-panel="screen" aria-labelledby="tab-screen" hidden>
           <div class="panel-heading">
             <div>
-              <p class="surface-label">Step 3</p>
+              <p class="surface-label">Step 6</p>
               <h3 id="screen-heading">Practice title and abstract screening</h3>
             </div>
           </div>
@@ -224,7 +294,7 @@
         <section class="panel" id="panel-extract" role="tabpanel" data-panel="extract" aria-labelledby="tab-extract" hidden>
           <div class="panel-heading">
             <div>
-              <p class="surface-label">Step 4</p>
+              <p class="surface-label">Step 7</p>
               <h3 id="extract-heading">Draft extraction fields</h3>
             </div>
           </div>
@@ -234,7 +304,7 @@
         <section class="panel" id="panel-report" role="tabpanel" data-panel="report" aria-labelledby="tab-report" hidden>
           <div class="panel-heading">
             <div>
-              <p class="surface-label">Step 5</p>
+              <p class="surface-label">Step 8</p>
               <h3 id="report-heading">Check reporting readiness</h3>
             </div>
           </div>
@@ -245,5 +315,6 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script type="module" src="./src/app.mjs"></script>
+    <script type="module" src="./src/enhancements.mjs"></script>
   </body>
 </html>
